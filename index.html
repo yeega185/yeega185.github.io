@@ -11,7 +11,6 @@
     <meta property="og:description" content="專注於打造具備「美感與效率」的數位自動化資產，透過程式碼釋放生產力。">
     <link rel="icon" href="YG-logo.png" type="image/x-icon">
 
-
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="YEEGA STUDIO. | Developer Portfolio">
     <meta property="twitter:description" content="專注於打造具備「美感與效率」的數位自動化資產。">
@@ -25,25 +24,41 @@
         body {
             font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
             background-color: #FDFDFC;
-            /* 紙張白背景 */
             color: #121212;
-            /* 純黑文字 */
             scroll-behavior: smooth;
-        }
-
-        .border-line {
-            border-color: #121212;
+            overflow-x: hidden;
         }
 
         .text-accent {
             color: #E63946;
-            /* 強烈紅 */
         }
 
         .bg-accent {
             background-color: #E63946;
         }
 
+        /* --- 滾動顯現動畫 --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        /* --- Service Item --- */
         .service-item:hover {
             background-color: #F8F8F8;
             padding-left: 20px;
@@ -54,22 +69,203 @@
             border-bottom: 1px solid #121212;
         }
 
+        /* --- Project Box: 窗簾特效 --- */
         .project-box {
             border: 1px solid #121212;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            background-color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
         }
 
-        /* 點擊後顯示連結的面板 */
+        .project-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #E63946;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .project-box:hover::before {
+            transform: translateY(0);
+        }
+
+        .project-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px -10px rgba(230, 57, 70, 0.3);
+            border-color: #E63946;
+        }
+
+        .project-box:hover h4,
+        .project-box:hover p,
+        .project-box:hover .project-tag,
+        .project-box:hover .active-label {
+            color: #ffffff !important;
+        }
+
+        .project-box:hover .border-current {
+            border-color: #ffffff !important;
+        }
+
+        .project-content-layer {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         .project-overlay {
             transform: translateY(101%);
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 30;
         }
 
         .project-box.active .project-overlay {
             transform: translateY(0);
+        }
+
+        /* --- Project 按鈕 --- */
+        .click-indicator-btn {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            background: #121212;
+            padding: 10px 20px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #fff;
+            z-index: 5;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .project-box:hover .click-indicator-btn {
+            background: #fff;
+            color: #E63946;
+            transform: scale(1.05);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #E63946;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .project-box:hover .pulse-dot {
+            background-color: #E63946;
+        }
+
+        /* --- Mac Window --- */
+        .mac-window {
+            background: #fff;
+            border: 1px solid #121212;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mac-window:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .mac-header {
+            background: #f1f1f1;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mac-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mac-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .bg-red-500 {
+            background-color: #ff5f56;
+        }
+
+        .bg-yellow-500 {
+            background-color: #ffbd2e;
+        }
+
+        .bg-green-500 {
+            background-color: #27c93f;
+        }
+
+        .mac-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+        }
+
+        .mac-body-email {
+            padding: 48px 32px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .mac-body-social {
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* [NEW] 社群卡片樣式 */
+        .social-card {
+            background-color: #FAFAFA;
+            transition: all 0.3s ease;
+        }
+
+        .social-card:hover {
+            background-color: #F0F0F0;
+        }
+
+        /* [NEW] 客製化指示標籤 (已修改為客製化中文) */
+        .visit-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #E63946;
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid #E63946;
+            padding-bottom: 2px;
+        }
+
+        .social-card:active {
+            background-color: #e4e4e7;
+            transform: scale(0.98);
         }
 
         /* 滾動條樣式 */
@@ -95,9 +291,8 @@
 
 <body class="antialiased">
 
-    <!-- 頂部導航 -->
     <nav
-        class="fixed top-0 w-full z-50 bg-[#FDFDFC]/90 backdrop-blur-sm border-b border-black px-6 py-6 flex justify-between items-center">
+        class="fixed top-0 w-full z-50 bg-[#FDFDFC]/90 backdrop-blur-sm border-b border-black px-6 py-6 flex justify-between items-center reveal-on-scroll">
         <div class="text-2xl font-bold tracking-tighter uppercase">
             Yeega<span class="text-accent italic ml-1">Studio.</span>
         </div>
@@ -117,19 +312,20 @@
 
     <main class="pt-24">
 
-        <!-- Hero Section -->
         <section class="py-12 md:py-20 px-6 md:px-12 lg:px-24 border-b border-black">
             <div class="mb-12">
-                <h2 class="text-[10px] uppercase tracking-[0.6em] text-accent mb-6 font-bold text-center md:text-left">
+                <h2
+                    class="text-[10px] uppercase tracking-[0.6em] text-accent mb-6 font-bold text-center md:text-left reveal-on-scroll">
                     Independent Developer & Consultant</h2>
-                <h1 class="text-5xl md:text-8xl font-bold leading-tight tracking-tighter text-center md:text-left">
+                <h1
+                    class="text-5xl md:text-8xl font-bold leading-tight tracking-tighter text-center md:text-left reveal-on-scroll delay-100">
                     ENGINEERING <br>
                     <span class="italic font-light opacity-30">MODERN</span> AUTOMATION
                 </h1>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-black">
-                <div class="lg:col-span-7">
+                <div class="lg:col-span-7 reveal-on-scroll delay-200">
                     <p
                         class="text-lg md:text-2xl text-zinc-800 leading-snug max-w-2xl font-medium text-center md:text-left">
                         專注於打造具備「美感與效率」的數位自動化資產。從實戰教學到系統開發，透過程式碼釋放生產力，並將實戰級的開發思維轉化為一對一導師課程，助你用代碼建立無可取代的競爭力。
@@ -144,7 +340,7 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-5">
+                <div class="lg:col-span-5 reveal-on-scroll delay-200">
                     <div class="status-panel bg-white overflow-hidden">
                         <div
                             class="bg-black text-white px-4 py-2 text-[10px] font-bold uppercase tracking-widest flex justify-between items-center">
@@ -181,35 +377,34 @@
             </div>
         </section>
 
-        <!-- 01 Services Section -->
         <section id="services" class="border-b border-black">
             <div class="grid grid-cols-1 md:grid-cols-4">
                 <div
-                    class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-black flex flex-row md:flex-col justify-between items-center md:items-start">
+                    class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-black flex flex-row md:flex-col justify-between items-center md:items-start reveal-on-scroll">
                     <h3 class="text-xs uppercase tracking-[0.4em] font-bold">01 / Services</h3>
                     <div class="text-4xl md:text-6xl font-bold opacity-10">SVCS</div>
                 </div>
                 <div class="md:col-span-3">
-                    <div class="service-item p-8 md:p-12 group cursor-default">
+                    <div class="service-item p-8 md:p-12 group cursor-default reveal-on-scroll delay-100">
                         <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 md:gap-8">
                             <h4 class="text-2xl md:text-4xl font-bold uppercase tracking-tighter">程式設計教學</h4>
                             <p class="text-zinc-400 text-xs md:text-right max-w-xs">一對一實戰導向教學，從基礎邏輯到網頁前端專案實作。</p>
                         </div>
                     </div>
-                    <div class="service-item p-8 md:p-12 group cursor-default">
+                    <div class="service-item p-8 md:p-12 group cursor-default reveal-on-scroll delay-100">
                         <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 md:gap-8">
                             <h4 class="text-2xl md:text-4xl font-bold uppercase tracking-tighter">自動化程式開發</h4>
                             <p class="text-zinc-400 text-xs md:text-right max-w-xs">RPA, n8n, Ｍake, Python
                                 腳本整合，將重複流程完全自動化。</p>
                         </div>
                     </div>
-                    <div class="service-item p-8 md:p-12 group cursor-default">
+                    <div class="service-item p-8 md:p-12 group cursor-default reveal-on-scroll delay-200">
                         <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 md:gap-8">
                             <h4 class="text-2xl md:text-4xl font-bold uppercase tracking-tighter">網頁設計與開發</h4>
                             <p class="text-zinc-400 text-xs md:text-right max-w-xs">高質感形象網站與 Web App，兼具美學與執行效率。</p>
                         </div>
                     </div>
-                    <div class="service-item p-8 md:p-12 group cursor-default border-b-0">
+                    <div class="service-item p-8 md:p-12 group cursor-default border-b-0 reveal-on-scroll delay-200">
                         <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 md:gap-8">
                             <h4 class="text-2xl md:text-4xl font-bold uppercase tracking-tighter">數據爬蟲功能</h4>
                             <p class="text-zinc-400 text-xs md:text-right max-w-xs">穩定、高效的爬蟲解決方案，協助你獲取關鍵數據資產。</p>
@@ -219,37 +414,43 @@
             </div>
         </section>
 
-        <!-- 02 Showcase Section (不對稱三欄式 2:1 排版) -->
         <section id="showcase" class="py-20 md:py-32 px-4 md:px-8 lg:px-12 border-b border-black">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 px-2 gap-4">
+            <div
+                class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 px-2 gap-4 reveal-on-scroll">
                 <h3 class="text-xs uppercase tracking-[0.4em] font-bold">02 / Project Showcase</h3>
-                <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest italic">Click box to reveal
-                    links</span>
+                <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest italic">Click cards to reveal
+                    details</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                <!-- Highlight Hunter (佔 2 欄) -->
-                <div class="md:col-span-2 project-box p-6 md:p-10 flex flex-col justify-between min-h-[400px]"
+                <div class="md:col-span-2 project-box p-6 md:p-10 min-h-[400px] reveal-on-scroll delay-100"
                     onclick="toggleProject(this)">
-                    <div class="z-10">
-                        <div class="flex items-center gap-4 mb-6">
-                            <span
-                                class="text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 border border-current">Featured
-                                Lab</span>
-                            <span
-                                class="text-[10px] font-bold uppercase text-accent animate-pulse tracking-widest">Active</span>
+                    <div class="project-content-layer">
+                        <div class="z-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <span
+                                    class="project-tag text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 border border-current">Featured
+                                    Lab</span>
+                                <span
+                                    class="active-label text-[10px] font-bold uppercase text-accent animate-pulse tracking-widest">Active</span>
+                            </div>
+                            <h4
+                                class="text-3xl md:text-5xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight transition-colors duration-300">
+                                Highlight Hunter</h4>
+                            <p class="max-w-md text-zinc-500 leading-relaxed text-sm transition-colors duration-300">
+                                自動化影像剪輯獵手。透過智慧影像識別技術，在海量實況中自動捕捉並剪輯精彩片段。</p>
                         </div>
-                        <h4
-                            class="text-3xl md:text-5xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight">
-                            Highlight Hunter</h4>
-                        <p class="max-w-md text-zinc-500 leading-relaxed text-sm">
-                            自動化影像剪輯獵手。透過智慧影像識別技術，在海量實況中自動捕捉並剪輯精彩片段。
-                        </p>
+                        <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400 project-tag">
+                            <span>#PYTHON</span> <span>#OPENCV</span>
+                        </div>
                     </div>
-                    <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400">
-                        <span>#PYTHON</span> <span>#OPENCV</span>
+
+                    <div class="click-indicator-btn">
+                        <span class="pulse-dot"></span>
+                        View Project
                     </div>
+
                     <div
                         class="project-overlay absolute inset-0 bg-black text-white p-8 md:p-12 flex flex-col justify-center items-center gap-6 z-20">
                         <div class="text-xs font-bold uppercase tracking-[0.4em] mb-4 text-accent">Access Project</div>
@@ -265,22 +466,29 @@
                     </div>
                 </div>
 
-                <!-- 旅遊記帳網站 (佔 1 欄) -->
-                <div class="md:col-span-1 project-box p-6 md:p-10 flex flex-col justify-between min-h-[400px]"
+                <div class="md:col-span-1 project-box p-6 md:p-10 min-h-[400px] reveal-on-scroll delay-200"
                     onclick="toggleProject(this)">
-                    <div class="z-10">
-                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] mb-8 block text-zinc-400">Web
-                            App</span>
-                        <h4
-                            class="text-3xl lg:text-4xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight">
-                            旅遊記帳網站</h4>
-                        <p class="text-zinc-500 text-sm leading-relaxed">
-                            出國旅遊不想再為算錢煩惱。即時計算與清晰分類，讓每一分錢都有跡可循。
-                        </p>
+                    <div class="project-content-layer">
+                        <div class="z-10">
+                            <span
+                                class="project-tag text-[10px] font-bold uppercase tracking-[0.2em] mb-8 block text-zinc-400">Web
+                                App</span>
+                            <h4
+                                class="text-3xl lg:text-4xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight transition-colors duration-300">
+                                旅遊記帳網站</h4>
+                            <p class="text-zinc-500 text-sm leading-relaxed transition-colors duration-300">
+                                出國旅遊不想再為算錢煩惱。即時計算與清晰分類，讓每一分錢都有跡可循。</p>
+                        </div>
+                        <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400 project-tag">
+                            <span>#FINANCE</span> <span>#TOOLS</span>
+                        </div>
                     </div>
-                    <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400">
-                        <span>#FINANCE</span> <span>#TOOLS</span>
+
+                    <div class="click-indicator-btn">
+                        <span class="pulse-dot"></span>
+                        View Project
                     </div>
+
                     <div
                         class="project-overlay absolute inset-0 bg-black text-white p-8 md:p-12 flex flex-col justify-center items-center gap-4 z-20">
                         <a href="https://youtu.be/C5127RB2j3c?si=X4xAvTnLT9HsgBNA" target="_blank"
@@ -294,22 +502,28 @@
                     </div>
                 </div>
 
-                <!-- 台南旅行網站 (佔 1 欄) -->
-                <div class="md:col-span-1 project-box p-6 md:p-10 flex flex-col justify-between min-h-[400px]"
+                <div class="md:col-span-1 project-box p-6 md:p-10 min-h-[400px] reveal-on-scroll delay-200"
                     onclick="toggleProject(this)">
-                    <div class="z-10">
-                        <span
-                            class="text-[10px] font-bold uppercase tracking-[0.2em] mb-8 block text-zinc-400">UI/UX</span>
-                        <h4
-                            class="text-3xl lg:text-4xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight">
-                            台南旅行網站</h4>
-                        <p class="text-zinc-500 text-sm leading-relaxed">
-                            府城導覽數位化。將美食與歷史完美整合。
-                        </p>
+                    <div class="project-content-layer">
+                        <div class="z-10">
+                            <span
+                                class="project-tag text-[10px] font-bold uppercase tracking-[0.2em] mb-8 block text-zinc-400">UI/UX</span>
+                            <h4
+                                class="text-3xl lg:text-4xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight transition-colors duration-300">
+                                台南旅行網站</h4>
+                            <p class="text-zinc-500 text-sm leading-relaxed transition-colors duration-300">
+                                府城導覽數位化。將美食與歷史完美整合。</p>
+                        </div>
+                        <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400 project-tag">
+                            <span>#DESIGN</span> <span>#TRAVEL</span>
+                        </div>
                     </div>
-                    <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400">
-                        <span>#DESIGN</span> <span>#TRAVEL</span>
+
+                    <div class="click-indicator-btn">
+                        <span class="pulse-dot"></span>
+                        View Project
                     </div>
+
                     <div
                         class="project-overlay absolute inset-0 bg-black text-white p-8 md:p-10 flex flex-col justify-center items-center gap-4 z-20">
                         <a href="https://yeega185.github.io/Tainan-trip/" target="_blank"
@@ -323,22 +537,29 @@
                     </div>
                 </div>
 
-                <!-- LOL 選角模擬器 (佔 2 欄) -->
-                <div class="md:col-span-2 project-box p-6 md:p-10 flex flex-col justify-between min-h-[400px]"
+                <div class="md:col-span-2 project-box p-6 md:p-10 min-h-[400px] reveal-on-scroll delay-100"
                     onclick="toggleProject(this)">
-                    <div class="z-10">
-                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] mb-8 block text-zinc-400">Logic
-                            Simulation</span>
-                        <h4
-                            class="text-3xl md:text-5xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight">
-                            LOL BP Simulator</h4>
-                        <p class="text-zinc-500 text-sm leading-relaxed max-w-md">
-                            模擬電競 BP 流程。著重於資料庫的即時聯動與防呆邏輯，還原高強度的選角策略感。
-                        </p>
+                    <div class="project-content-layer">
+                        <div class="z-10">
+                            <span
+                                class="project-tag text-[10px] font-bold uppercase tracking-[0.2em] mb-8 block text-zinc-400">Logic
+                                Simulation</span>
+                            <h4
+                                class="text-3xl md:text-5xl font-bold italic tracking-tighter mb-6 whitespace-normal md:whitespace-nowrap leading-tight transition-colors duration-300">
+                                LOL BP Simulator</h4>
+                            <p class="text-zinc-500 text-sm leading-relaxed max-w-md transition-colors duration-300">
+                                模擬電競 BP 流程。著重於資料庫的即時聯動與防呆邏輯，還原高強度的選角策略感。</p>
+                        </div>
+                        <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400 project-tag">
+                            <span>#GAME_LOGIC</span> <span>#INTERACTIVE</span>
+                        </div>
                     </div>
-                    <div class="z-10 flex gap-4 text-[10px] font-bold uppercase text-zinc-400">
-                        <span>#GAME_LOGIC</span> <span>#INTERACTIVE</span>
+
+                    <div class="click-indicator-btn">
+                        <span class="pulse-dot"></span>
+                        View Project
                     </div>
+
                     <div
                         class="project-overlay absolute inset-0 bg-black text-white p-8 md:p-12 flex flex-col justify-center items-center gap-6 z-20">
                         <a href="https://yeega185.github.io/lol-bp-simulator/" target="_blank"
@@ -354,8 +575,7 @@
             </div>
         </section>
 
-        <!-- 03 GitHub Section (技術規格排版) -->
-        <section id="github" class="py-20 px-6 md:px-12 lg:px-24 mb-32 border-b border-black">
+        <section id="github" class="py-20 px-6 md:px-12 lg:px-24 mb-32 border-b border-black reveal-on-scroll">
             <div class="flex justify-between items-end mb-12">
                 <h3 class="text-xs uppercase tracking-[0.4em] font-bold text-accent">03 / Code Base</h3>
             </div>
@@ -418,8 +638,7 @@
             </div>
         </section>
 
-        <!-- 04 AI Knowledge Base Section (Yeega AI Mentor) -->
-        <section id="ai-base" class="py-20 px-6 md:px-12 lg:px-24 border-b border-black">
+        <section id="ai-base" class="py-20 px-6 md:px-12 lg:px-24 border-b border-black reveal-on-scroll">
             <div class="flex justify-between items-end mb-12">
                 <h3 class="text-xs uppercase tracking-[0.4em] font-bold text-accent">04 / AI Knowledge Base</h3>
             </div>
@@ -442,86 +661,98 @@
             </div>
         </section>
 
-        <!-- 05 Contact Section (紅線滑動動畫) -->
-        <section id="contact" class="py-20 md:py-32 px-6 md:px-12 lg:px-24">
+        <section id="contact" class="py-20 md:py-32 px-6 md:px-12 lg:px-24 reveal-on-scroll">
             <h3 class="text-xs uppercase tracking-[0.4em] font-bold mb-20 text-center">05 / Connect With Me</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-black border border-black">
 
-                <a href="https://discord.gg/Ay2kGp77gT" target="_blank"
-                    class="bg-white p-8 transition duration-500 hover:bg-zinc-50 group flex flex-col justify-between h-64 relative overflow-hidden">
-                    <i
-                        class="fab fa-discord text-4xl group-hover:text-accent group-hover:-translate-y-1 transition-all duration-300"></i>
+            <div class="mac-window">
 
-                    <div class="flex flex-col gap-2">
-                        <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400">Discord</div>
-                        <div class="text-[13px] leading-relaxed text-zinc-600 group-hover:text-black transition-colors">
-                            教學諮詢、委託開發與最新動態發佈。
-                        </div>
-                        <div class="text-sm font-bold uppercase tracking-widest text-black group-hover:text-accent">
-                            Yeega 接案諮詢
-                        </div>
+                <div class="mac-header">
+                    <div class="mac-controls">
+                        <div class="mac-dot bg-red-500"></div>
+                        <div class="mac-dot bg-yellow-500"></div>
+                        <div class="mac-dot bg-green-500"></div>
                     </div>
-                    <div
-                        class="absolute bottom-0 left-0 w-0 h-1 bg-accent group-hover:w-full transition-all duration-500">
+                    <div class="mac-title">Contact - Yeega Studio</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <a href="mailto:yeega185@gmail.com" class="block group text-decoration-none mac-body-email">
+                    <div class="flex flex-col items-center gap-6">
+                        <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">Available for
+                            Opportunities</div>
+
+                        <h4
+                            class="text-4xl md:text-6xl font-bold tracking-tighter text-zinc-900 group-hover:text-accent transition-colors duration-300">
+                            Let's Talk
+                        </h4>
+
+                        <div class="text-xl font-mono text-zinc-500">yeega185@gmail.com</div>
+
+                        <div
+                            class="mt-4 px-8 py-3 rounded-full border border-black text-xs font-bold uppercase tracking-widest group-hover:bg-black group-hover:text-white transition-all">
+                            Send Email <i class="fas fa-paper-plane ml-2"></i>
+                        </div>
                     </div>
                 </a>
 
-                <a href="https://www.instagram.com/neural_odyssey_yg?igsh=MXZseTRibG43MnN2cQ==" target="_blank"
-                    class="bg-white p-8 transition duration-500 hover:bg-zinc-50 group flex flex-col justify-between h-64 relative overflow-hidden">
-                    <i
-                        class="fab fa-instagram text-4xl group-hover:text-accent group-hover:-translate-y-1 transition-all duration-300"></i>
+                <div class="mac-body-social">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-zinc-200">
 
-                    <div class="flex flex-col gap-2">
-                        <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400">Instagram</div>
-                        <div class="text-[13px] leading-relaxed text-zinc-600 group-hover:text-black transition-colors">
-                            開發心路歷程分享與案件即時諮詢。
-                        </div>
-                        <div class="text-sm font-bold uppercase tracking-widest text-black group-hover:text-accent">
-                            @NEURAL_ODYSSEY_YG
-                        </div>
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 w-0 h-1 bg-accent group-hover:w-full transition-all duration-500">
-                    </div>
-                </a>
+                        <a href="https://discord.gg/Ay2kGp77gT" target="_blank"
+                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
 
-                <a href="https://www.youtube.com/channel/UCDhgQJg8B8_U7kZI-gtK_Gg" target="_blank"
-                    class="bg-white p-8 transition duration-500 hover:bg-zinc-50 group flex flex-col justify-between h-64 relative overflow-hidden">
-                    <i
-                        class="fab fa-youtube text-4xl group-hover:text-accent group-hover:-translate-y-1 transition-all duration-300"></i>
+                            <i
+                                class="fab fa-discord text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
 
-                    <div class="flex flex-col gap-2">
-                        <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400">YouTube</div>
-                        <div class="text-[13px] leading-relaxed text-zinc-600 group-hover:text-black transition-colors">
-                            開發實錄 Demo 與自動化技術教學。
-                        </div>
-                        <div class="text-sm font-bold uppercase tracking-widest text-black group-hover:text-accent">
-                            Neural Odssey丨YG
-                        </div>
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 w-0 h-1 bg-accent group-hover:w-full transition-all duration-500">
-                    </div>
-                </a>
+                            <div class="flex flex-col gap-1">
+                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Discord</div>
+                                <div class="text-sm font-bold text-black">Yeega 接案諮詢</div>
+                                <div class="visit-label">前往諮詢 ↗</div>
+                            </div>
+                        </a>
 
-                <a href="https://lin.ee/lwWmRqR" target="_blank"
-                    class="bg-white p-8 transition duration-500 hover:bg-zinc-50 group flex flex-col justify-between h-64 relative overflow-hidden">
-                    <i
-                        class="fab fa-line text-4xl group-hover:text-accent group-hover:-translate-y-1 transition-all duration-300"></i>
+                        <a href="https://www.instagram.com/neural_odyssey_yg?igsh=MXZseTRibG43MnN2cQ==" target="_blank"
+                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
 
-                    <div class="flex flex-col gap-2">
-                        <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400">Line OA【官方帳號】</div>
-                        <div class="text-[13px] leading-relaxed text-zinc-600 group-hover:text-black transition-colors">
-                            一對一需求諮詢、近況與最新消息。
-                        </div>
-                        <div class="text-sm font-bold uppercase tracking-widest text-black group-hover:text-accent">
-                            @672lzlij
-                        </div>
+                            <i
+                                class="fab fa-instagram text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+
+                            <div class="flex flex-col gap-1">
+                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Instagram
+                                </div>
+                                <div class="text-sm font-bold text-black">@NEURAL_ODYSSEY_YG</div>
+                                <div class="visit-label">查看動態 ↗</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.youtube.com/channel/UCDhgQJg8B8_U7kZI-gtK_Gg" target="_blank"
+                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
+
+                            <i
+                                class="fab fa-youtube text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+
+                            <div class="flex flex-col gap-1">
+                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">YouTube</div>
+                                <div class="text-sm font-bold text-black">Neural Odssey丨YG</div>
+                                <div class="visit-label">瀏覽頻道 ↗</div>
+                            </div>
+                        </a>
+
+                        <a href="https://lin.ee/lwWmRqR" target="_blank"
+                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden">
+
+                            <i
+                                class="fab fa-line text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+
+                            <div class="flex flex-col gap-1">
+                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Line OA</div>
+                                <div class="text-sm font-bold text-black">@672lzlij</div>
+                                <div class="visit-label">加入好友 ↗</div>
+                            </div>
+                        </a>
+
                     </div>
-                    <div
-                        class="absolute bottom-0 left-0 w-0 h-1 bg-accent group-hover:w-full transition-all duration-500">
-                    </div>
-                </a>
+                </div>
 
             </div>
         </section>
@@ -559,6 +790,25 @@
                     box.classList.remove('active');
                 });
             }
+        });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+            observer.observe(el);
         });
     </script>
 </body>
