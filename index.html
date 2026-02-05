@@ -133,7 +133,7 @@
             transform: translateY(0);
         }
 
-        /* --- Project 按鈕 --- */
+        /* --- Project 按鈕 (手機版/預設狀態) --- */
         .click-indicator-btn {
             position: absolute;
             bottom: 24px;
@@ -248,14 +248,16 @@
             background-color: #F0F0F0;
         }
 
-        /* [NEW] 客製化指示標籤 (已修改為客製化中文) */
+        /* [NEW] 客製化指示標籤 */
         .visit-label {
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: #E63946;
-            margin-top: 12px;
+            margin-top: auto;
+            /* 推到底部 */
+            padding-top: 12px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -699,53 +701,68 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-zinc-200">
 
                         <a href="https://discord.gg/Ay2kGp77gT" target="_blank"
-                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
+                            class="social-card p-8 group flex flex-col justify-between min-h-[300px] relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
 
-                            <i
-                                class="fab fa-discord text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                            <div>
+                                <i
+                                    class="fab fa-discord text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                                <div class="mt-6 text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Discord
+                                </div>
+                                <div class="text-xs text-zinc-500 my-2 leading-relaxed">教學諮詢、委託開發與最新動態發佈。</div>
+                            </div>
 
-                            <div class="flex flex-col gap-1">
-                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Discord</div>
+                            <div>
                                 <div class="text-sm font-bold text-black">Yeega 接案諮詢</div>
                                 <div class="visit-label">前往諮詢 ↗</div>
                             </div>
                         </a>
 
                         <a href="https://www.instagram.com/neural_odyssey_yg?igsh=MXZseTRibG43MnN2cQ==" target="_blank"
-                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
+                            class="social-card p-8 group flex flex-col justify-between min-h-[300px] relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
 
-                            <i
-                                class="fab fa-instagram text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                            <div>
+                                <i
+                                    class="fab fa-instagram text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                                <div class="mt-6 text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+                                    Instagram</div>
+                                <div class="text-xs text-zinc-500 my-2 leading-relaxed">開發心路歷程分享與案件即時諮詢。</div>
+                            </div>
 
-                            <div class="flex flex-col gap-1">
-                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Instagram
-                                </div>
+                            <div>
                                 <div class="text-sm font-bold text-black">@NEURAL_ODYSSEY_YG</div>
                                 <div class="visit-label">查看動態 ↗</div>
                             </div>
                         </a>
 
                         <a href="https://www.youtube.com/channel/UCDhgQJg8B8_U7kZI-gtK_Gg" target="_blank"
-                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
+                            class="social-card p-8 group flex flex-col justify-between min-h-[300px] relative overflow-hidden border-r border-zinc-200 last:border-r-0 border-b sm:border-b-0">
 
-                            <i
-                                class="fab fa-youtube text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                            <div>
+                                <i
+                                    class="fab fa-youtube text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                                <div class="mt-6 text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">YouTube
+                                </div>
+                                <div class="text-xs text-zinc-500 my-2 leading-relaxed">開發實錄 Demo 與自動化技術教學。</div>
+                            </div>
 
-                            <div class="flex flex-col gap-1">
-                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">YouTube</div>
+                            <div>
                                 <div class="text-sm font-bold text-black">Neural Odssey丨YG</div>
                                 <div class="visit-label">瀏覽頻道 ↗</div>
                             </div>
                         </a>
 
                         <a href="https://lin.ee/lwWmRqR" target="_blank"
-                            class="social-card p-8 group flex flex-col justify-between h-64 relative overflow-hidden">
+                            class="social-card p-8 group flex flex-col justify-between min-h-[300px] relative overflow-hidden">
 
-                            <i
-                                class="fab fa-line text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                            <div>
+                                <i
+                                    class="fab fa-line text-3xl text-zinc-900 group-hover:text-accent transition-all duration-300"></i>
+                                <div class="mt-6 text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Line OA
+                                </div>
+                                <div class="text-xs text-zinc-500 my-2 leading-relaxed">一對一需求諮詢、近況與最新消息。</div>
+                            </div>
 
-                            <div class="flex flex-col gap-1">
-                                <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500">Line OA</div>
+                            <div>
                                 <div class="text-sm font-bold text-black">@672lzlij</div>
                                 <div class="visit-label">加入好友 ↗</div>
                             </div>
